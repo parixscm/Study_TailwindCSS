@@ -3,24 +3,17 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Navbar() {
   const navRef = useRef();
-  const closeNavRef = useRef();
   const [isNavOpened, setIsNavOpened] = useState(false);
 
   useEffect(() => {
-    const checkIfClickedOutside = e => {
-      if (
-        isNavOpened &&
-        navRef.current &&
-        !navRef.current.contains(e.target) &&
-        !closeNavRef.current.contains(e.target)
-      ) {
+    const checkIfClickedOutside = ({ target }) => {
+      console.log("111");
+      if (isNavOpened && !navRef.current?.contains(target))
         setIsNavOpened(false);
-      }
     };
-    document.addEventListener("mousedown", checkIfClickedOutside);
+    window.addEventListener("mousedown", checkIfClickedOutside);
 
-    return () =>
-      document.removeEventListener("mousedown", checkIfClickedOutside);
+    return () => window.removeEventListener("mousedown", checkIfClickedOutside);
   }, [isNavOpened]);
 
   return (
@@ -33,20 +26,15 @@ function Navbar() {
         <li className="w-24 p-4">커뮤니티</li>
       </ul>
       <div
-        ref={closeNavRef}
         onClick={() => setIsNavOpened(prev => !prev)}
         className="block cursor-pointer p-4 md:hidden"
       >
-        {!isNavOpened ? (
-          <AiOutlineMenu size={20} />
-        ) : (
-          <AiOutlineClose size={20} />
-        )}
+        <AiOutlineMenu size={20} />
       </div>
       {isNavOpened && (
         <ul
           ref={navRef}
-          className="fixed left-0 top-0 h-full w-2/5 divide-y-[1px] divide-gray-600 border-r-gray-900 bg-gray-900 pb-4 pl-4 pr-4 pt-12 md:hidden"
+          className="fixed right-0 top-0 h-full w-2/5 divide-y-[1px] divide-gray-600 border-r-gray-900 bg-gray-900 pb-4 pl-4 pr-4 pt-12 md:hidden"
         >
           <li className="p-4">소개</li>
           <li className="p-4">로드맵</li>
