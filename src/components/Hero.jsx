@@ -3,7 +3,7 @@ import Typed from "react-typed";
 
 function Hero() {
   return (
-    <div className="text-white">
+    <div className="pt-24 text-white">
       <div className="mx-auto mt-[-96px] flex h-screen w-full max-w-[800px] flex-col justify-center text-center">
         <p className="font-bold text-[#00df9a]">동료들과 함께 성장하세요</p>
         <h1 className="pb-3 pt-2 text-4xl font-bold sm:text-6xl md:py-6 md:text-7xl">
