@@ -1,19 +1,23 @@
 import { useState, useEffect, useRef } from "react";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 
 function Navbar() {
   const navRef = useRef();
   const [isNavOpened, setIsNavOpened] = useState(false);
 
+  const navButtonHandler = event => {
+    event.stopPropagation();
+    setIsNavOpened(prev => !prev);
+  };
+
   useEffect(() => {
     const checkIfClickedOutside = ({ target }) => {
-      console.log("111");
       if (isNavOpened && !navRef.current?.contains(target))
         setIsNavOpened(false);
     };
-    window.addEventListener("mousedown", checkIfClickedOutside);
+    window.addEventListener("click", checkIfClickedOutside);
 
-    return () => window.removeEventListener("mousedown", checkIfClickedOutside);
+    return () => window.removeEventListener("click", checkIfClickedOutside);
   }, [isNavOpened]);
 
   return (
@@ -26,7 +30,7 @@ function Navbar() {
         <li className="w-24 p-4">커뮤니티</li>
       </ul>
       <div
-        onClick={() => setIsNavOpened(prev => !prev)}
+        onClick={navButtonHandler}
         className="block cursor-pointer p-4 md:hidden"
       >
         <AiOutlineMenu size={20} />
